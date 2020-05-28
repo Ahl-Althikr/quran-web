@@ -1,0 +1,12 @@
+{
+  "exclude": ["node_modules", "build"],
+  "include": ["src"],
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "src",
+    "paths": {
+      "*": ["*", "src/*"]
+    }
+  }
+}
