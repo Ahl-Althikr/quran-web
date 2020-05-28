@@ -15,7 +15,7 @@ class App extends React.Component {
   })
 
   state = {
-    activePageKey: 1,
+    activePageKey: +window.location.pathname.replace('/', '') || 1,
     addedStyles: new Set(),
   }
 
