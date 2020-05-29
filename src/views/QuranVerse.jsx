@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { NEXT_CHAPTER_TITLE } from 'constants/app'
-import ClassNames from './QuranVerse.module.scss'
 import { last } from 'utils/array'
+import ClassNames from './QuranVerse.module.scss'
 
 export default class QuranVerse extends React.Component {
   render() {
