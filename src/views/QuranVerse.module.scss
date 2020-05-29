@@ -8,7 +8,6 @@
 
 .QuranBasmalah {
   text-align: center;
-  font-size: 36px;
 }
 
 .QuranChapterTitle {
@@ -19,4 +18,14 @@
   text-align: center;
   color: #753c37;
   font-family: font_chapter_title;
+  position: relative;
+  height: 52px;
+  width: 100%;
+}
+
+.QuranChapter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -1.55px;
 }
