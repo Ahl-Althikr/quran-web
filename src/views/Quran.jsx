@@ -138,49 +138,51 @@ class Quran extends React.Component {
       <div className={ClassNames.QuranLoading}>Loading...</div>
     ) : (
       <div className={classes}>
-        {!((page + 1) % 2) ? (
-          <>
-            <QuranPage
-              page={pages[page + 1]}
-              verses={verses}
-              chapters={chapters}
-              sections={sections}
-              explanations={explanations}
-              showExplanation={showExplanation}
-              blurPage={blurPage}
-            />
-            <QuranPage
-              page={pages[page]}
-              verses={verses}
-              chapters={chapters}
-              sections={sections}
-              explanations={explanations}
-              showExplanation={showExplanation}
-              blurPage={blurPage}
-            />
-          </>
-        ) : (
-          <>
-            <QuranPage
-              page={pages[page]}
-              verses={verses}
-              chapters={chapters}
-              sections={sections}
-              explanations={explanations}
-              showExplanation={showExplanation}
-              blurPage={blurPage}
-            />
-            <QuranPage
-              page={pages[page - 1]}
-              verses={verses}
-              chapters={chapters}
-              sections={sections}
-              explanations={explanations}
-              showExplanation={showExplanation}
-              blurPage={blurPage}
-            />
-          </>
-        )}
+        <div className={ClassNames.QuranInner}>
+          {!((page + 1) % 2) ? (
+            <>
+              <QuranPage
+                page={pages[page + 1]}
+                verses={verses}
+                chapters={chapters}
+                sections={sections}
+                explanations={explanations}
+                showExplanation={showExplanation}
+                blurPage={blurPage}
+              />
+              <QuranPage
+                page={pages[page]}
+                verses={verses}
+                chapters={chapters}
+                sections={sections}
+                explanations={explanations}
+                showExplanation={showExplanation}
+                blurPage={blurPage}
+              />
+            </>
+          ) : (
+            <>
+              <QuranPage
+                page={pages[page]}
+                verses={verses}
+                chapters={chapters}
+                sections={sections}
+                explanations={explanations}
+                showExplanation={showExplanation}
+                blurPage={blurPage}
+              />
+              <QuranPage
+                page={pages[page - 1]}
+                verses={verses}
+                chapters={chapters}
+                sections={sections}
+                explanations={explanations}
+                showExplanation={showExplanation}
+                blurPage={blurPage}
+              />
+            </>
+          )}
+        </div>
         <div className={ClassNames.QuranButtons}>
           <button onClick={toggleShowExplanation}>
             {!showExplanation ? 'Show' : 'Hide'} Explanation

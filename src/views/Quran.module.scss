@@ -1,9 +1,16 @@
 .Quran {
   text-align: center;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   height: 100%;
+  overflow-x: auto;
+}
+
+.QuranInner {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
 }
 
 .QuranLoading {
@@ -11,27 +18,23 @@
 }
 
 .QuranButtons {
-  margin-top: 5px;
+  margin: 5px 0px;
   height: 21px;
-  flex-basis: 100%;
-  width: 0;
-
-  > button:first-child {
-    margin-right: -120px;
-    float: left;
-  }
-
-  > button:nth-child(2) {
-    margin-right: 5px;
-  }
-
-  > button:last-child {
-    margin-left: -120px;
-    float: right;
-  }
+  width: 100%;
 
   > button {
     cursor: pointer;
-    min-width: 120px;
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+
+  > button:first-child {
+    float: left;
+  }
+
+  > button:last-child {
+    float: right;
   }
 }
