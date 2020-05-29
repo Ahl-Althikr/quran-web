@@ -1,0 +1,16 @@
+.Quran {
+  text-align: center;
+  margin: auto 0;
+}
+
+.QuranLoading {
+  text-align: center;
+}
+
+.QuranButtons {
+  margin-top: 5px;
+
+  > button:first-child {
+    margin-right: 5px;
+  }
+}
