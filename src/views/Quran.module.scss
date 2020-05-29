@@ -20,6 +20,12 @@
   }
 
   > button {
-    width: 70px;
+    cursor: pointer;
+    min-width: 100px;
+  }
+
+  > button:last-child {
+    margin-left: -100px;
+    float: right;
   }
 }

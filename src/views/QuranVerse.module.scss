@@ -1,6 +1,14 @@
 .QuranVerse {
   cursor: pointer;
 
+  :global(.blur) & span {
+    filter: blur(5px);
+  }
+
+  & > span:hover {
+    filter: blur(0px);
+  }
+
   &:hover {
     color: #0764a9;
   }
