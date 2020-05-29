@@ -15,7 +15,13 @@ export default class QuranPage extends React.Component {
   addPageFont = (pageNumber = this.props.page.number) => {
     const pageId = `page_${pageNumber}`
 
-    if (document.querySelector(`style#${pageId}`)) return
+    if (
+      document.querySelector(`style#${pageId}`) ||
+      pageNumber < 1 ||
+      pageNumber > 604
+    ) {
+      return
+    }
 
     const style = document.createElement('style')
     const head = document.head || document.querySelector('head')
@@ -39,11 +45,16 @@ export default class QuranPage extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.page.number !== 1) {
+    const { number } = this.props.page
+
+    if (number !== 1) {
       this.addPageFont(1)
     }
 
-    this.addPageFont()
+    ;[...new Array(2)].forEach((v, i) => {
+      this.addPageFont(number - i)
+      this.addPageFont(number + i)
+    })
   }
 
   componentDidUpdate() {
