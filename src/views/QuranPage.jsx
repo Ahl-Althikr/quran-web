@@ -12,9 +12,8 @@ export default class QuranPage extends React.Component {
     },
   }
 
-  addPageFont = () => {
-    const { page } = this.props
-    const pageId = `page_${page.number}`
+  addPageFont = (pageNumber = this.props.page.number) => {
+    const pageId = `page_${pageNumber}`
 
     if (document.querySelector(`style#${pageId}`)) return
 
@@ -22,8 +21,8 @@ export default class QuranPage extends React.Component {
     const head = document.head || document.querySelector('head')
     const css = `
       @font-face {
-        font-family: 'font_page_${page.number}';
-        src: url(${FONT_URL.replace('{}', page.number)}) format('truetype');
+        font-family: 'font_page_${pageNumber}';
+        src: url(${FONT_URL.replace('{}', pageNumber)}) format('truetype');
       }
     `
 
@@ -40,6 +39,10 @@ export default class QuranPage extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.page.number !== 1) {
+      this.addPageFont(1)
+    }
+
     this.addPageFont()
   }
 

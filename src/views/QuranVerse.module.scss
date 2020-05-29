@@ -8,6 +8,8 @@
 
 .QuranBasmalah {
   text-align: center;
+  font-family: font_page_1;
+  margin: -1.76px 0;
 }
 
 .QuranChapterTitle {
@@ -18,17 +20,13 @@
   text-align: center;
   color: #753c37;
   font-family: font_chapter_title;
-  position: relative;
-  height: 52px;
+  height: 50px;
   width: 100%;
   min-width: 382.14px;
 }
 
 .QuranChapter {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -1.55px;
+  text-align: center;
 }
 
 :global(.page_1) .QuranVerse {

@@ -29,7 +29,7 @@ export default class QuranVerse extends React.Component {
               </div>
             )}
             {chapter.basmalah && (
-              <div className={ClassNames.QuranBasmalah}>﷽</div>
+              <div className={ClassNames.QuranBasmalah}>ﭑﭒﭓﭔ</div>
             )}
           </>
         )}
