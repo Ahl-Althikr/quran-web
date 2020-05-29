@@ -12,6 +12,10 @@
   flex-direction: column;
   margin-top: 5px;
   min-height: calc(100% - 53px);
+
+  &.isExplanation {
+    text-align: right;
+  }
 }
 
 .QuranPageContent {

@@ -15,13 +15,14 @@
 }
 
 .QuranVerseExplanation {
-  text-align: center;
+  text-align: right;
   font-size: 24px;
   line-height: 24px;
-  padding-bottom: 20px;
-  padding-top: 12px;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
+  padding: 12px 10px;
+  border: 1px solid rgba($color: #000000, $alpha: 0.2);
+  background: rgba($color: #000000, $alpha: 0.2);
+  border-radius: 6px;
+  margin: 0 5px;
   margin-bottom: 20px;
   font-family: Uthmani;
 }
@@ -49,7 +50,7 @@
   text-align: center;
 }
 
-:global(.page_1) .QuranVerse {
+:global(.page_1) .QuranVerse:not(.isExplanation) {
   &:nth-child(2):after,
   &:nth-child(3):after,
   &:nth-child(5):after,
@@ -61,7 +62,7 @@
   }
 }
 
-:global(.page_2) .QuranVerse {
+:global(.page_2) .QuranVerse:not(.isExplanation) {
   &:nth-child(4) span:nth-child(8):after,
   &:nth-child(5) span:nth-child(5):after,
   &:nth-child(6) span:nth-child(4):after,
@@ -72,7 +73,7 @@
   }
 }
 
-:global(.page_167) .QuranVerse:nth-child(6) {
+:global(.page_167) .QuranVerse:not(.isExplanation):nth-child(6) {
   span:nth-child(22) {
     margin-right: -4px;
   }
