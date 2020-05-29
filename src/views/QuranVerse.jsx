@@ -11,13 +11,9 @@ export default class QuranVerse extends React.Component {
       <>
         {verse.number === 1 && (
           <>
-            <span className={ClassNames.QuranChapterTitle}>
-              <div className={ClassNames.QuranChapterText}>
-                <span className={ClassNames.QuranChapter}>
-                  {chapter.arabic_unicode}
-                </span>
-              </div>
-            </span>
+            <div className={ClassNames.QuranChapterTitle}>
+              {chapter.arabic_unicode}
+            </div>
             {chapter.basmalah && (
               <div className={ClassNames.QuranBasmalah}>﷽</div>
             )}
