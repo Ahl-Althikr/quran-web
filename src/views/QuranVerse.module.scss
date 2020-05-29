@@ -12,15 +12,19 @@
   &:hover {
     color: #0764a9;
   }
+
+  &.isExplanation {
+    margin: 0 5px;
+  }
 }
 
 .QuranVerseExplanation {
   text-align: right;
   font-size: 24px;
-  line-height: 24px;
+  line-height: 28px;
   padding: 12px 10px;
   border: 1px solid rgba($color: #000000, $alpha: 0.2);
-  background: rgba($color: #000000, $alpha: 0.2);
+  background: rgba($color: #000000, $alpha: 0.1);
   border-radius: 6px;
   margin: 0 5px;
   margin-bottom: 20px;
