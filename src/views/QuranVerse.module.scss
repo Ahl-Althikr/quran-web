@@ -21,6 +21,7 @@
   position: relative;
   height: 52px;
   width: 100%;
+  min-width: 382.14px;
 }
 
 .QuranChapter {
@@ -28,4 +29,27 @@
   left: 50%;
   transform: translateX(-50%);
   top: -1.55px;
+}
+
+:global(.page_1) .QuranVerse {
+  &:nth-child(2):after,
+  &:nth-child(3):after,
+  &:nth-child(5):after,
+  &:nth-child(7) span:nth-child(1):after,
+  &:nth-child(8) span:nth-child(3):after,
+  &:nth-child(8) span:nth-child(7):after {
+    content: '\A';
+    white-space: pre;
+  }
+}
+
+:global(.page_2) .QuranVerse {
+  &:nth-child(4) span:nth-child(8):after,
+  &:nth-child(5) span:nth-child(5):after,
+  &:nth-child(6) span:nth-child(4):after,
+  &:nth-child(6):after,
+  &:nth-child(7) span:nth-child(7):after {
+    content: '\A';
+    white-space: pre;
+  }
 }
