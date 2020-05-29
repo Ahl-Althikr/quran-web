@@ -17,16 +17,21 @@
   width: 0;
 
   > button:first-child {
+    margin-right: -120px;
+    float: left;
+  }
+
+  > button:nth-child(2) {
     margin-right: 5px;
   }
 
   > button {
     cursor: pointer;
-    min-width: 100px;
+    min-width: 120px;
   }
 
   > button:last-child {
-    margin-left: -100px;
+    margin-left: -120px;
     float: right;
   }
 }

@@ -18,3 +18,13 @@ body,
   src: url(https://raw.githubusercontent.com/Ahl-Althikr/scripts/master/quran_fonts_data/quran_chapter_titles.ttf)
     format('truetype');
 }
+
+@font-face {
+  font-family: 'Uthmani';
+  src: url(~assets/fonts/Uthmani.otf);
+}
+
+@font-face {
+  font-family: 'Uthmani-Bold';
+  src: url(~assets/fonts/Uthmani-Bold.otf);
+}

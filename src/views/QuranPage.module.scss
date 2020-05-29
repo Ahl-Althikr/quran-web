@@ -16,21 +16,26 @@
 
 .QuranPageContent {
   margin: auto 0;
+
+  .isExplanation & {
+    flex-grow: 1;
+  }
 }
 
 .QuranPageNumber {
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 16px;
+  line-height: 16px;
   margin-top: 5px;
+  font-family: Uthmani;
 }
 
 .QuranPageChapterAndSection {
   display: flex;
   flex-direction: row;
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 16px;
+  line-height: 16px;
   margin-bottom: 5px;
-  padding: 0px 10px;
+  padding: 0px 7px;
 }
 
 .QuranPageChapter {
@@ -42,4 +47,5 @@
 .QuranPageSection {
   flex-grow: 1;
   text-align: right;
+  font-family: Uthmani;
 }

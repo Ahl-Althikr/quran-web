@@ -14,9 +14,11 @@ import ClassNames from './Quran.module.scss'
 class Quran extends React.Component {
   state = {
     blurPage: false,
+    showExplanation: false,
   }
 
   static mapStateToProps = ({ get }) => ({
+    explanations: get.explanations.explanations(),
     sections: get.sections.sections(),
     chapters: get.chapters.chapters(),
     verses: get.verses.verses(),
@@ -70,9 +72,21 @@ class Quran extends React.Component {
     history.push(`/${nextActivePageKey}`)
   }
 
+  /**
+   * -------------------
+   * Toggle Methods
+   * -------------------
+   */
+
   toggleBlurPage = () => {
     this.setState({
       blurPage: !this.state.blurPage,
+    })
+  }
+
+  toggleShowExplanation = () => {
+    this.setState({
+      showExplanation: !this.state.showExplanation,
     })
   }
 
@@ -112,14 +126,13 @@ class Quran extends React.Component {
       nextPage,
       prevPage,
       toggleBlurPage,
-      state: { blurPage },
-      props: { isFetching, verses, pages, chapters, sections },
+      toggleShowExplanation,
+      state: { blurPage, showExplanation },
+      props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
 
     const page = getPage()
-    const classes = classNames(ClassNames.Quran, {
-      blur: blurPage,
-    })
+    const classes = classNames(ClassNames.Quran)
 
     return isFetching ? (
       <div className={ClassNames.QuranLoading}>Loading...</div>
@@ -132,12 +145,18 @@ class Quran extends React.Component {
               verses={verses}
               chapters={chapters}
               sections={sections}
+              explanations={explanations}
+              showExplanation={showExplanation}
+              blurPage={blurPage}
             />
             <QuranPage
               page={pages[page]}
               verses={verses}
               chapters={chapters}
               sections={sections}
+              explanations={explanations}
+              showExplanation={showExplanation}
+              blurPage={blurPage}
             />
           </>
         ) : (
@@ -147,16 +166,25 @@ class Quran extends React.Component {
               verses={verses}
               chapters={chapters}
               sections={sections}
+              explanations={explanations}
+              showExplanation={showExplanation}
+              blurPage={blurPage}
             />
             <QuranPage
               page={pages[page - 1]}
               verses={verses}
               chapters={chapters}
               sections={sections}
+              explanations={explanations}
+              showExplanation={showExplanation}
+              blurPage={blurPage}
             />
           </>
         )}
         <div className={ClassNames.QuranButtons}>
+          <button onClick={toggleShowExplanation}>
+            {!showExplanation ? 'Show' : 'Hide'} Explanation
+          </button>
           <button onClick={nextPage}>Next</button>
           <button onClick={prevPage}>Previous</button>
           <button onClick={toggleBlurPage}>

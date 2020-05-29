@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
+import { toArabicNumber } from 'utils/toArabicNumber'
 import { FONT_URL } from 'constants/app'
 import QuranVerse from './QuranVerse'
 import ClassNames from './QuranPage.module.scss'
@@ -64,11 +65,25 @@ export default class QuranPage extends React.Component {
   }
 
   render() {
-    const { page, verses, chapters, sections } = this.props
-    const classes = classNames(ClassNames.QuranPage, `page_${page.number}`)
-    const styles = { fontFamily: `font_page_${page.number}` }
+    const {
+      page,
+      verses,
+      chapters,
+      sections,
+      explanations,
 
-    console.log(sections)
+      blurPage,
+      showExplanation,
+    } = this.props
+
+    const styles = {
+      fontFamily: `font_page_${page.number}`,
+    }
+
+    const classes = classNames(ClassNames.QuranPage, `page_${page.number}`, {
+      [ClassNames.isBlur]: blurPage,
+      [ClassNames.isExplanation]: showExplanation,
+    })
 
     return (
       <div className={classes} style={styles}>
@@ -79,11 +94,11 @@ export default class QuranPage extends React.Component {
               .join(' ← ')}
           </div>
           <div className={ClassNames.QuranPageSection}>
+            الجزء{' '}
             {page.sections
-              .map((section) => sections[section].id)
+              .map((section) => toArabicNumber(sections[section].id))
               .reverse()
               .join(' ← ')}{' '}
-            الجزء
           </div>
         </div>
         <div className={ClassNames.QuranPageContent}>
@@ -92,10 +107,16 @@ export default class QuranPage extends React.Component {
               key={verseKey}
               verse={verses[verseKey]}
               chapters={chapters}
+              sections={sections}
+              explanations={explanations}
+              blurPage={blurPage}
+              showExplanation={showExplanation}
             />
           ))}
         </div>
-        <div className={ClassNames.QuranPageNumber}>{page.number}</div>
+        <div className={ClassNames.QuranPageNumber}>
+          {toArabicNumber(page.number)}
+        </div>
       </div>
     )
   }
