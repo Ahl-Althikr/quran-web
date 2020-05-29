@@ -4,7 +4,6 @@ import Provider from '@anew/provider'
 import './Quran.css'
 
 import { onKeyDown } from 'utils/events'
-import { FONT_URL } from 'constants/app'
 import { onKey } from 'utils/keys'
 
 import history from 'config/history'
