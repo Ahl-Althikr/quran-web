@@ -17,6 +17,7 @@ class Quran extends React.Component {
   }
 
   static mapStateToProps = ({ get }) => ({
+    sections: get.sections.sections(),
     chapters: get.chapters.chapters(),
     verses: get.verses.verses(),
     pages: get.pages.pages(),
@@ -112,7 +113,7 @@ class Quran extends React.Component {
       prevPage,
       toggleBlurPage,
       state: { blurPage },
-      props: { isFetching, verses, pages, chapters },
+      props: { isFetching, verses, pages, chapters, sections },
     } = this
 
     const page = getPage()
@@ -130,16 +131,28 @@ class Quran extends React.Component {
               page={pages[page + 1]}
               verses={verses}
               chapters={chapters}
+              sections={sections}
             />
-            <QuranPage page={pages[page]} verses={verses} chapters={chapters} />
+            <QuranPage
+              page={pages[page]}
+              verses={verses}
+              chapters={chapters}
+              sections={sections}
+            />
           </>
         ) : (
           <>
-            <QuranPage page={pages[page]} verses={verses} chapters={chapters} />
+            <QuranPage
+              page={pages[page]}
+              verses={verses}
+              chapters={chapters}
+              sections={sections}
+            />
             <QuranPage
               page={pages[page - 1]}
               verses={verses}
               chapters={chapters}
+              sections={sections}
             />
           </>
         )}

@@ -10,15 +10,36 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 5px;
+  min-height: calc(100% - 53px);
 }
 
 .QuranPageContent {
-  flex-grow: 1;
-  margin-top: auto;
+  margin: auto 0;
 }
 
 .QuranPageNumber {
   font-size: 12px;
   line-height: 12px;
   margin-top: 5px;
+}
+
+.QuranPageChapterAndSection {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  line-height: 12px;
+  margin-bottom: 5px;
+  padding: 0px 10px;
+}
+
+.QuranPageChapter {
+  flex-grow: 1;
+  text-align: left;
+  font-family: font_chapter_title;
+}
+
+.QuranPageSection {
+  flex-grow: 1;
+  text-align: right;
 }

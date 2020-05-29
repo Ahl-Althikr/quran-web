@@ -9,6 +9,8 @@ export default class QuranPage extends React.Component {
   static defaultProps = {
     page: {
       verses: [],
+      chapters: [],
+      sections: [],
     },
   }
 
@@ -62,12 +64,28 @@ export default class QuranPage extends React.Component {
   }
 
   render() {
-    const { page, verses, chapters } = this.props
+    const { page, verses, chapters, sections } = this.props
     const classes = classNames(ClassNames.QuranPage, `page_${page.number}`)
     const styles = { fontFamily: `font_page_${page.number}` }
 
+    console.log(sections)
+
     return (
       <div className={classes} style={styles}>
+        <div className={ClassNames.QuranPageChapterAndSection}>
+          <div className={ClassNames.QuranPageChapter}>
+            {page.chapters
+              .map((chapter) => chapters[chapter].arabic_unicode)
+              .join(' ← ')}
+          </div>
+          <div className={ClassNames.QuranPageSection}>
+            {page.sections
+              .map((section) => sections[section].id)
+              .reverse()
+              .join(' ← ')}{' '}
+            الجزء
+          </div>
+        </div>
         <div className={ClassNames.QuranPageContent}>
           {page.verses.map((verseKey) => (
             <QuranVerse

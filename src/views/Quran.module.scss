@@ -1,9 +1,9 @@
 .Quran {
   text-align: center;
-  margin: auto 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  height: 100%;
 }
 
 .QuranLoading {
@@ -12,6 +12,7 @@
 
 .QuranButtons {
   margin-top: 5px;
+  height: 21px;
   flex-basis: 100%;
   width: 0;
 
