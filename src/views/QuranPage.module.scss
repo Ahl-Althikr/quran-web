@@ -7,6 +7,8 @@
   max-width: 401.347353484px;
   padding: 5px;
   border: 1px solid rgba($color: #000000, $alpha: 0.2);
+  display: flex;
+  flex-direction: column;
 
   &.isExplanation {
     text-align: right;
@@ -15,6 +17,8 @@
 
 .QuranPageContent {
   margin: auto 0;
+  max-height: calc(100% - 42px);
+  overflow-y: auto;
 
   .isExplanation & {
     margin: 0;
