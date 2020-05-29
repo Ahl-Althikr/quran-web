@@ -11,8 +11,6 @@ export default class QuranPage extends React.Component {
   static defaultProps = {
     page: {
       verses: [],
-      chapters: [],
-      sections: [],
     },
   }
 
@@ -90,10 +88,15 @@ export default class QuranPage extends React.Component {
       <div className={classes} style={styles}>
         <div className={ClassNames.QuranPageChapterAndSection}>
           <div className={ClassNames.QuranPageChapter}>
-            {chapters[last(page.chapters)].arabic_unicode}
+            {chapters &&
+              page.chapters &&
+              chapters[last(page.chapters)].arabic_unicode}
           </div>
           <div className={ClassNames.QuranPageSection}>
-            الجزء {toArabicNumber(sections[last(page.sections)].id)}
+            الجزء{' '}
+            {sections &&
+              page.sections &&
+              toArabicNumber(sections[last(page.sections)].id)}
           </div>
         </div>
         <div className={ClassNames.QuranPageContent}>

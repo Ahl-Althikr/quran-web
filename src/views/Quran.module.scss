@@ -25,13 +25,13 @@
     margin-right: 5px;
   }
 
-  > button {
-    cursor: pointer;
-    min-width: 120px;
-  }
-
   > button:last-child {
     margin-left: -120px;
     float: right;
+  }
+
+  > button {
+    cursor: pointer;
+    min-width: 120px;
   }
 }
