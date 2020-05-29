@@ -10,3 +10,20 @@
   text-align: center;
   font-size: 36px;
 }
+
+.QuranChapterTitle {
+  background: url(~assets/icons/chapter-title-bg-light.svg) 50% no-repeat;
+  background-size: contain;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.QuranChapterText {
+  color: #753c37;
+  padding: 12px 0;
+}
+
+.QuranChapter {
+  font-family: font_chapter_title;
+}

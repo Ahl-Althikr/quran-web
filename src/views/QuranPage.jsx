@@ -6,6 +6,10 @@ import QuranVerse from './QuranVerse'
 import ClassNames from './QuranPage.module.scss'
 
 export default class QuranPage extends React.Component {
+  static defaultProps = {
+    page: {},
+  }
+
   addPageFont = () => {
     const { page } = this.props
     const pageId = `page_${page.number}`
@@ -48,13 +52,15 @@ export default class QuranPage extends React.Component {
 
     return (
       <div className={classes} style={styles}>
-        {page.verses.map((verseKey) => (
-          <QuranVerse
-            key={verseKey}
-            verse={verses[verseKey]}
-            chapters={chapters}
-          />
-        ))}
+        <div className={ClassNames.QuranPageInner}>
+          {page.verses.map((verseKey) => (
+            <QuranVerse
+              key={verseKey}
+              verse={verses[verseKey]}
+              chapters={chapters}
+            />
+          ))}
+        </div>
       </div>
     )
   }
