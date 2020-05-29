@@ -42,14 +42,18 @@ export default class QuranPage extends React.Component {
   }
 
   render() {
-    const { page, verses } = this.props
+    const { page, verses, chapters } = this.props
     const classes = classNames(ClassNames.QuranPage, `page_${page.number}`)
     const styles = { fontFamily: `font_page_${page.number}` }
 
     return (
       <div className={classes} style={styles}>
         {page.verses.map((verseKey) => (
-          <QuranVerse key={verseKey} verse={verses[verseKey]} />
+          <QuranVerse
+            key={verseKey}
+            verse={verses[verseKey]}
+            chapters={chapters}
+          />
         ))}
       </div>
     )

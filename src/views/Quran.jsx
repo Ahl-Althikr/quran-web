@@ -12,6 +12,7 @@ import ClassNames from './Quran.module.scss'
 
 class Quran extends React.Component {
   static mapStateToProps = ({ get }) => ({
+    chapters: get.chapters.chapters(),
     verses: get.verses.verses(),
     pages: get.pages.pages(),
     isFetching: get.isFetching(),
@@ -98,7 +99,7 @@ class Quran extends React.Component {
       getPage,
       nextPage,
       prevPage,
-      props: { isFetching, verses, pages },
+      props: { isFetching, verses, pages, chapters },
     } = this
 
     const page = getPage()
@@ -109,13 +110,21 @@ class Quran extends React.Component {
       <div className={ClassNames.Quran}>
         {!((page + 1) % 2) ? (
           <>
-            <QuranPage page={pages[page + 1]} verses={verses} />
-            <QuranPage page={pages[page]} verses={verses} />
+            <QuranPage
+              page={pages[page + 1]}
+              verses={verses}
+              chapters={chapters}
+            />
+            <QuranPage page={pages[page]} verses={verses} chapters={chapters} />
           </>
         ) : (
           <>
-            <QuranPage page={pages[page]} verses={verses} />
-            <QuranPage page={pages[page - 1]} verses={verses} />
+            <QuranPage page={pages[page]} verses={verses} chapters={chapters} />
+            <QuranPage
+              page={pages[page - 1]}
+              verses={verses}
+              chapters={chapters}
+            />
           </>
         )}
         <div className={ClassNames.QuranButtons}>
