@@ -52,7 +52,7 @@ export default class QuranPage extends React.Component {
 
     return (
       <div className={classes} style={styles}>
-        <div className={ClassNames.QuranPageInner}>
+        <div className={ClassNames.QuranPageContent}>
           {page.verses.map((verseKey) => (
             <QuranVerse
               key={verseKey}
@@ -61,6 +61,7 @@ export default class QuranPage extends React.Component {
             />
           ))}
         </div>
+        <div className={ClassNames.QuranPageNumber}>{page.number}</div>
       </div>
     )
   }
