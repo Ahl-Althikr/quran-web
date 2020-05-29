@@ -51,3 +51,13 @@
     white-space: pre;
   }
 }
+
+:global(.page_167) .QuranVerse:nth-child(6) {
+  span:nth-child(22) {
+    margin-right: -4px;
+  }
+  span:nth-child(23),
+  span:nth-child(24) {
+    margin-right: -3px;
+  }
+}
