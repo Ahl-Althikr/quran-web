@@ -7,7 +7,9 @@ import ClassNames from './QuranPage.module.scss'
 
 export default class QuranPage extends React.Component {
   static defaultProps = {
-    page: {},
+    page: {
+      verses: [],
+    },
   }
 
   addPageFont = () => {
