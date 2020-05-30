@@ -77,9 +77,12 @@ export default class QuranPage extends React.Component {
       showExplanation,
     } = this.props
 
+    const width = fontSize / 0.0698
     const styles = {
       fontSize,
-      maxWidth: fontSize / 0.0698,
+      width,
+      maxWidth: width,
+      minWidth: width,
       fontFamily: `font_page_${page.number}`,
     }
 

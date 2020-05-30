@@ -131,7 +131,7 @@ class Quran extends React.Component {
   handleResize = ({ width, height }) => {
     const isSmallScreen = width < 1138
     const fontSize = Math.round(
-      isSmallScreen ? width * 0.0698 : (height - 10) * 0.036117381
+      isSmallScreen ? width * 0.0698 : (height - 30) * 0.036117381
     )
 
     this.setState({ isSmallScreen, fontSize })
