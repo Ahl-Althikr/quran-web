@@ -2,6 +2,8 @@
   color: #000;
   direction: rtl;
   cursor: pointer;
+  white-space: nowrap;
+  width: 367px;
 
   &.isActive {
     background: #fcf4e6;
@@ -25,6 +27,7 @@
   color: #666;
   font-family: font_chapter_title;
   font-size: 24px;
+  margin-left: 20px;
 }
 
 .QuranChapterHeader {
