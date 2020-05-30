@@ -9,6 +9,7 @@ import { last } from 'utils/array'
 
 export default class QuranPage extends React.Component {
   static defaultProps = {
+    fontSize: 28,
     page: {
       verses: [],
     },
@@ -47,7 +48,15 @@ export default class QuranPage extends React.Component {
   }
 
   componentDidMount() {
-    const { number } = this.props.page
+    const {
+      pageRef,
+      props: {
+        setFontSize,
+        page: { number },
+      },
+    } = this
+
+    setFontSize(pageRef.clientHeight * 0.036117381)
 
     if (number !== 1) {
       this.addPageFont(1)
@@ -71,21 +80,28 @@ export default class QuranPage extends React.Component {
       sections,
       explanations,
 
-      blurPage,
+      fontSize,
+      blurVerses,
       showExplanation,
     } = this.props
 
     const styles = {
+      fontSize,
+      maxWidth: fontSize / 0.0698,
       fontFamily: `font_page_${page.number}`,
     }
 
     const classes = classNames(ClassNames.QuranPage, `page_${page.number}`, {
-      [ClassNames.isBlur]: blurPage,
+      [ClassNames.isBlur]: blurVerses,
       [ClassNames.isExplanation]: showExplanation,
     })
 
     return (
-      <div className={classes} style={styles}>
+      <div
+        className={classes}
+        style={styles}
+        ref={(pageNode) => (this.pageRef = pageNode)}
+      >
         <div className={ClassNames.QuranPageChapterAndSection}>
           <div className={ClassNames.QuranPageChapter}>
             {chapters &&
@@ -107,8 +123,9 @@ export default class QuranPage extends React.Component {
               chapters={chapters}
               sections={sections}
               explanations={explanations}
-              blurPage={blurPage}
+              blurVerses={blurVerses}
               showExplanation={showExplanation}
+              fontSize={fontSize}
             />
           ))}
         </div>

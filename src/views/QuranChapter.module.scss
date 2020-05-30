@@ -1,0 +1,63 @@
+.QuranChapter {
+  color: #000;
+  direction: rtl;
+  cursor: pointer;
+
+  &.isActive {
+    background: hsla(0, 0%, 100%, 0.5);
+    font-weight: 900;
+  }
+}
+
+.QuranChapterContent {
+  padding-right: 15px;
+}
+
+.QuranChapterInner {
+  display: flex;
+  align-items: center;
+  padding: 8px 0px;
+}
+
+.QuranChapterTitle {
+  line-height: 1.4;
+  list-style: none;
+  color: #666;
+  font-family: font_chapter_title;
+  font-size: 24px;
+}
+
+.QuranChapterHeader {
+  font-family: Uthmani;
+  margin-left: 10px;
+  background: rgba(219, 212, 186, 0.5);
+  color: #0764a9;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.QuranChapterAfter {
+  line-height: 1.4;
+  display: flex;
+  padding-left: 5px;
+  font-size: 16px;
+  color: #666;
+  margin-right: auto;
+}
+
+.QuranChapterBadge {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 6px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #8c7645;
+  margin-right: 15px;
+}

@@ -12,8 +12,9 @@ export default class QuranVerse extends React.Component {
       chapters,
       explanations,
 
-      blurPage,
+      blurVerses,
       showExplanation,
+      fontSize,
     } = this.props
 
     const explanation = explanations[verse.explanations[0]]
@@ -27,9 +28,13 @@ export default class QuranVerse extends React.Component {
     )
 
     const classes = classNames(ClassNames.QuranVerse, {
-      [ClassNames.isBlur]: blurPage,
+      [ClassNames.isBlur]: blurVerses,
       [ClassNames.isExplanation]: showExplanation,
     })
+
+    const chapterStyles = {
+      fontSize: fontSize - 13,
+    }
 
     return (
       <>
@@ -37,7 +42,7 @@ export default class QuranVerse extends React.Component {
           <>
             {!includedInPrevChapterTitle && (
               <div className={ClassNames.QuranChapterTitle}>
-                <div className={ClassNames.QuranChapter}>
+                <div className={ClassNames.QuranChapter} style={chapterStyles}>
                   {chapter.arabic_unicode}
                 </div>
               </div>
@@ -59,7 +64,7 @@ export default class QuranVerse extends React.Component {
         )}
         {includeNextChapterTitle && verse.id === lastChapterVerseId && (
           <div className={ClassNames.QuranChapterTitle}>
-            <div className={ClassNames.QuranChapter}>
+            <div className={ClassNames.QuranChapter} style={chapterStyles}>
               {nextChapter.arabic_unicode}
             </div>
           </div>
