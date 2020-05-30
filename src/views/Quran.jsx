@@ -175,16 +175,6 @@ class Quran extends React.Component {
       <div className={ClassNames.QuranLoading}>Loading...</div>
     ) : (
       <div className={ClassNames.Quran}>
-        <div className={ClassNames.QuranChapters}>
-          {Object.values(chapters).map((chapter) => (
-            <QuranChapter
-              key={chapter.number}
-              page={page}
-              chapter={chapter}
-              goToPage={goToPage}
-            />
-          ))}
-        </div>
         <div className={ClassNames.QuranReader}>
           <div className={ClassNames.QuranContent}>
             {!((page + 1) % 2) ? (
@@ -257,6 +247,16 @@ class Quran extends React.Component {
               {blurVerses ? 'Show' : 'Hide'} Verses
             </button>
           </div>
+        </div>
+        <div className={ClassNames.QuranChapters}>
+          {Object.values(chapters).map((chapter) => (
+            <QuranChapter
+              key={chapter.number}
+              page={page}
+              chapter={chapter}
+              goToPage={goToPage}
+            />
+          ))}
         </div>
       </div>
     )
