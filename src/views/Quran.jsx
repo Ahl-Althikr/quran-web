@@ -66,7 +66,7 @@ class Quran extends React.Component {
       props: { push },
     } = this
 
-    const isSmallScreen = contentRef.clientWidth < 768
+    const isSmallScreen = contentRef && contentRef.clientWidth < 768
     const nextActivePageKey = getPage() + (isSmallScreen ? 1 : 2)
 
     if (nextActivePageKey > 604) return
@@ -81,7 +81,7 @@ class Quran extends React.Component {
       props: { push },
     } = this
 
-    const isSmallScreen = contentRef.clientWidth < 768
+    const isSmallScreen = contentRef && contentRef.clientWidth < 768
     const nextActivePageKey = getPage() - (isSmallScreen ? 1 : 2)
 
     if (nextActivePageKey < 1) return
@@ -178,13 +178,13 @@ class Quran extends React.Component {
       toggleShowExplanation,
       decFontSize,
       incFontSize,
-      contentRef = {},
+      contentRef,
       state: { blurVerses, showExplanation, fontSize },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
 
     const page = getPage()
-    const isSmallScreen = contentRef.clientWidth < 768
+    const isSmallScreen = contentRef && contentRef.clientWidth < 768
 
     return isFetching ? (
       <div className={ClassNames.QuranLoading}>Loading...</div>

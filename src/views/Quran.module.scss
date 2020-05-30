@@ -5,6 +5,10 @@
   margin: 0 auto;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .QuranChapters {
@@ -24,6 +28,10 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .QuranContent {
@@ -51,9 +59,20 @@
   display: flex;
   height: 21px;
   white-space: nowrap;
+  margin-left: 0;
+
+  @media only screen and (max-width: 768px) {
+    margin-left: 5px;
+  }
 
   > button {
     cursor: pointer;
+
+    background-image: linear-gradient(to bottom, #e4e4e4, #f7f7f7);
+    border: 1px solid #afafaf;
+    border-radius: 3px;
+    height: 21px;
+    margin: 0;
 
     &:not(:last-child) {
       margin-right: 5px;
