@@ -32,8 +32,6 @@
 .QuranPageContent {
   margin: auto 0;
   max-height: calc(100% - 42px);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
 
   .isExplanation & {
     margin: 0;
