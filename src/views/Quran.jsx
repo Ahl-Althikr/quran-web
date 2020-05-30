@@ -156,7 +156,7 @@ class Quran extends React.Component {
     this.props.fetchData()
     this.removeKeyDownListener = onKeyDown(this.handleKeyDown)
 
-    if (this.contentRef.clientWidth < 768) {
+    if (this.quranRef.clientWidth < 768) {
       this.setState({ isSmallScreen: true })
       this.setFontSize(this.contentRef.clientWidth * 0.0698)
     } else {
@@ -188,7 +188,10 @@ class Quran extends React.Component {
     return isFetching ? (
       <div className={ClassNames.QuranLoading}>Loading...</div>
     ) : (
-      <div className={ClassNames.Quran}>
+      <div
+        className={ClassNames.Quran}
+        ref={(quranNode) => (this.quranRef = quranNode)}
+      >
         <div className={ClassNames.QuranReader}>
           <div
             className={ClassNames.QuranContent}
