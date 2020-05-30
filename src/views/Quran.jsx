@@ -148,6 +148,12 @@ class Quran extends React.Component {
   componentDidMount() {
     this.props.fetchData()
     this.removeKeyDownListener = onKeyDown(this.handleKeyDown)
+
+    if (this.contentRef.clientWidth < 768) {
+      this.setFontSize(this.contentRef.clientWidth * 0.0698)
+    } else {
+      this.setFontSize((this.contentRef.clientHeight - 10) * 0.036117381)
+    }
   }
 
   componentWillUnmount() {
@@ -164,7 +170,6 @@ class Quran extends React.Component {
       toggleShowExplanation,
       decFontSize,
       incFontSize,
-      setFontSize,
       state: { blurVerses, showExplanation, fontSize },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
@@ -176,7 +181,10 @@ class Quran extends React.Component {
     ) : (
       <div className={ClassNames.Quran}>
         <div className={ClassNames.QuranReader}>
-          <div className={ClassNames.QuranContent}>
+          <div
+            className={ClassNames.QuranContent}
+            ref={(contentNode) => (this.contentRef = contentNode)}
+          >
             {!((page + 1) % 2) ? (
               <>
                 <QuranPage
@@ -188,7 +196,6 @@ class Quran extends React.Component {
                   fontSize={fontSize}
                   showExplanation={showExplanation}
                   blurVerses={blurVerses}
-                  setFontSize={setFontSize}
                 />
                 <QuranPage
                   page={pages[page]}
@@ -199,7 +206,6 @@ class Quran extends React.Component {
                   fontSize={fontSize}
                   showExplanation={showExplanation}
                   blurVerses={blurVerses}
-                  setFontSize={setFontSize}
                 />
               </>
             ) : (
@@ -213,7 +219,6 @@ class Quran extends React.Component {
                   fontSize={fontSize}
                   showExplanation={showExplanation}
                   blurVerses={blurVerses}
-                  setFontSize={setFontSize}
                 />
                 <QuranPage
                   page={pages[page - 1]}
@@ -224,7 +229,6 @@ class Quran extends React.Component {
                   fontSize={fontSize}
                   showExplanation={showExplanation}
                   blurVerses={blurVerses}
-                  setFontSize={setFontSize}
                 />
               </>
             )}

@@ -48,15 +48,7 @@ export default class QuranPage extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      pageRef,
-      props: {
-        setFontSize,
-        page: { number },
-      },
-    } = this
-
-    setFontSize(pageRef.clientHeight * 0.036117381)
+    const { number } = this.props.page
 
     if (number !== 1) {
       this.addPageFont(1)
