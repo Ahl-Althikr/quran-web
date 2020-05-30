@@ -12,6 +12,7 @@ import ClassNames from './Quran.module.scss'
 
 class Quran extends React.Component {
   state = {
+    isSmallScreen: null,
     fontSize: 28,
     blurVerses: false,
     showExplanation: false,
@@ -62,11 +63,10 @@ class Quran extends React.Component {
   nextPage = () => {
     const {
       getPage,
-      contentRef,
+      state: { isSmallScreen },
       props: { push },
     } = this
 
-    const isSmallScreen = contentRef && contentRef.clientWidth < 768
     const nextActivePageKey = getPage() + (isSmallScreen ? 1 : 2)
 
     if (nextActivePageKey > 604) return
@@ -77,11 +77,10 @@ class Quran extends React.Component {
   prevPage = () => {
     const {
       getPage,
-      contentRef,
+      state: { isSmallScreen },
       props: { push },
     } = this
 
-    const isSmallScreen = contentRef && contentRef.clientWidth < 768
     const nextActivePageKey = getPage() - (isSmallScreen ? 1 : 2)
 
     if (nextActivePageKey < 1) return
@@ -158,8 +157,10 @@ class Quran extends React.Component {
     this.removeKeyDownListener = onKeyDown(this.handleKeyDown)
 
     if (this.contentRef.clientWidth < 768) {
+      this.setState({ isSmallScreen: true })
       this.setFontSize(this.contentRef.clientWidth * 0.0698)
     } else {
+      this.setState({ isSmallScreen: false })
       this.setFontSize((this.contentRef.clientHeight - 10) * 0.036117381)
     }
   }
@@ -178,13 +179,11 @@ class Quran extends React.Component {
       toggleShowExplanation,
       decFontSize,
       incFontSize,
-      contentRef,
-      state: { blurVerses, showExplanation, fontSize },
+      state: { blurVerses, showExplanation, fontSize, isSmallScreen },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
 
     const page = getPage()
-    const isSmallScreen = contentRef && contentRef.clientWidth < 768
 
     return isFetching ? (
       <div className={ClassNames.QuranLoading}>Loading...</div>
