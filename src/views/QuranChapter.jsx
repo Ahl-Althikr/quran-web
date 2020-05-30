@@ -2,7 +2,6 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { toArabicNumber } from 'utils/toArabicNumber'
-import { last } from 'utils/array'
 import ClassNames from './QuranChapter.module.scss'
 
 export default class QuranChapter extends React.Component {
@@ -14,7 +13,7 @@ export default class QuranChapter extends React.Component {
   render() {
     const { chapter, page, goToPage } = this.props
     const classes = classNames(ClassNames.QuranChapter, {
-      [ClassNames.isActive]: last(page.chapters) === chapter.id,
+      [ClassNames.isActive]: page.chapters.includes(chapter.id),
     })
 
     return (
