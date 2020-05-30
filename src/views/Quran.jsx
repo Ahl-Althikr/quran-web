@@ -115,7 +115,7 @@ class Quran extends React.Component {
 
   setFontSize = (fontSize) => {
     this.setState({
-      fontSize: Math.ceil(fontSize),
+      fontSize: Math.round(fontSize),
     })
   }
 
