@@ -62,9 +62,13 @@ class Quran extends React.Component {
   nextPage = () => {
     const {
       getPage,
+      contentRef,
       props: { push },
     } = this
-    const nextActivePageKey = getPage() + 2
+
+    const isSmallScreen = contentRef.clientWidth < 768
+    const nextActivePageKey = getPage() + (isSmallScreen ? 1 : 2)
+
     if (nextActivePageKey > 604) return
 
     push(() => `/${nextActivePageKey}`)
@@ -73,9 +77,13 @@ class Quran extends React.Component {
   prevPage = () => {
     const {
       getPage,
+      contentRef,
       props: { push },
     } = this
-    const nextActivePageKey = getPage() - 2
+
+    const isSmallScreen = contentRef.clientWidth < 768
+    const nextActivePageKey = getPage() - (isSmallScreen ? 1 : 2)
+
     if (nextActivePageKey < 1) return
 
     push(() => `/${nextActivePageKey}`)
@@ -170,11 +178,13 @@ class Quran extends React.Component {
       toggleShowExplanation,
       decFontSize,
       incFontSize,
+      contentRef = {},
       state: { blurVerses, showExplanation, fontSize },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
 
     const page = getPage()
+    const isSmallScreen = contentRef.clientWidth < 768
 
     return isFetching ? (
       <div className={ClassNames.QuranLoading}>Loading...</div>
@@ -187,16 +197,18 @@ class Quran extends React.Component {
           >
             {!((page + 1) % 2) ? (
               <>
-                <QuranPage
-                  page={pages[page + 1]}
-                  verses={verses}
-                  chapters={chapters}
-                  sections={sections}
-                  explanations={explanations}
-                  fontSize={fontSize}
-                  showExplanation={showExplanation}
-                  blurVerses={blurVerses}
-                />
+                {!isSmallScreen && (
+                  <QuranPage
+                    page={pages[page + 1]}
+                    verses={verses}
+                    chapters={chapters}
+                    sections={sections}
+                    explanations={explanations}
+                    fontSize={fontSize}
+                    showExplanation={showExplanation}
+                    blurVerses={blurVerses}
+                  />
+                )}
                 <QuranPage
                   page={pages[page]}
                   verses={verses}
@@ -220,16 +232,18 @@ class Quran extends React.Component {
                   showExplanation={showExplanation}
                   blurVerses={blurVerses}
                 />
-                <QuranPage
-                  page={pages[page - 1]}
-                  verses={verses}
-                  chapters={chapters}
-                  sections={sections}
-                  explanations={explanations}
-                  fontSize={fontSize}
-                  showExplanation={showExplanation}
-                  blurVerses={blurVerses}
-                />
+                {!isSmallScreen && (
+                  <QuranPage
+                    page={pages[page - 1]}
+                    verses={verses}
+                    chapters={chapters}
+                    sections={sections}
+                    explanations={explanations}
+                    fontSize={fontSize}
+                    showExplanation={showExplanation}
+                    blurVerses={blurVerses}
+                  />
+                )}
               </>
             )}
           </div>
