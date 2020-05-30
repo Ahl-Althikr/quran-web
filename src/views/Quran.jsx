@@ -272,7 +272,7 @@ class Quran extends React.Component {
           {Object.values(chapters).map((chapter) => (
             <QuranChapter
               key={chapter.number}
-              page={page}
+              page={pages[page]}
               chapter={chapter}
               goToPage={goToPage}
             />

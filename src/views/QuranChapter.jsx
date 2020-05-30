@@ -2,17 +2,19 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { toArabicNumber } from 'utils/toArabicNumber'
+import { last } from 'utils/array'
 import ClassNames from './QuranChapter.module.scss'
 
 export default class QuranChapter extends React.Component {
   static defaultProps = {
     chapter: {},
+    page: {},
   }
 
   render() {
     const { chapter, page, goToPage } = this.props
     const classes = classNames(ClassNames.QuranChapter, {
-      [ClassNames.isActive]: chapter.pages.includes(page + ''),
+      [ClassNames.isActive]: last(page.chapters) === chapter.id,
     })
 
     return (
