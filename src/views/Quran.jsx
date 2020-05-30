@@ -3,7 +3,7 @@ import Provider from '@anew/provider'
 
 import './Quran.css'
 
-import { onKeyDown } from 'utils/events'
+import { onKeyDown, onResize } from 'utils/events'
 import { onKey } from 'utils/keys'
 
 import QuranPage from './QuranPage'
@@ -12,7 +12,7 @@ import ClassNames from './Quran.module.scss'
 
 class Quran extends React.Component {
   state = {
-    isSmallScreen: null,
+    isSmallScreen: false,
     fontSize: 28,
     blurVerses: false,
     showExplanation: false,
@@ -101,24 +101,6 @@ class Quran extends React.Component {
    * -------------------
    */
 
-  decFontSize = () => {
-    this.setState({
-      fontSize: this.state.fontSize - 1,
-    })
-  }
-
-  incFontSize = () => {
-    this.setState({
-      fontSize: this.state.fontSize + 1,
-    })
-  }
-
-  setFontSize = (fontSize) => {
-    this.setState({
-      fontSize: Math.round(fontSize),
-    })
-  }
-
   toggleBlurVerses = () => {
     this.setState({
       blurVerses: !this.state.blurVerses,
@@ -146,6 +128,15 @@ class Quran extends React.Component {
     })
   }
 
+  handleResize = ({ width, height }) => {
+    const isSmallScreen = width < 768
+    const fontSize = Math.round(
+      isSmallScreen ? width * 0.0698 : (height - 10) * 0.036117381
+    )
+
+    this.setState({ isSmallScreen, fontSize })
+  }
+
   /**
    * -------------------
    * Lifecycle Methods
@@ -155,18 +146,12 @@ class Quran extends React.Component {
   componentDidMount() {
     this.props.fetchData()
     this.removeKeyDownListener = onKeyDown(this.handleKeyDown)
-
-    if (this.quranRef.clientWidth < 768) {
-      this.setState({ isSmallScreen: true })
-      this.setFontSize(this.contentRef.clientWidth * 0.0698)
-    } else {
-      this.setState({ isSmallScreen: false })
-      this.setFontSize((this.contentRef.clientHeight - 10) * 0.036117381)
-    }
+    this.removeResizeListener = onResize(this.handleResize)
   }
 
   componentWillUnmount() {
     this.removeKeyDownListener()
+    this.removeResizeListener()
   }
 
   render() {
@@ -177,8 +162,6 @@ class Quran extends React.Component {
       goToPage,
       toggleBlurVerses,
       toggleShowExplanation,
-      decFontSize,
-      incFontSize,
       state: { blurVerses, showExplanation, fontSize, isSmallScreen },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
@@ -188,15 +171,9 @@ class Quran extends React.Component {
     return isFetching ? (
       <div className={ClassNames.QuranLoading}>Loading...</div>
     ) : (
-      <div
-        className={ClassNames.Quran}
-        ref={(quranNode) => (this.quranRef = quranNode)}
-      >
+      <div className={ClassNames.Quran}>
         <div className={ClassNames.QuranReader}>
-          <div
-            className={ClassNames.QuranContent}
-            ref={(contentNode) => (this.contentRef = contentNode)}
-          >
+          <div className={ClassNames.QuranContent}>
             {!((page + 1) % 2) ? (
               <>
                 {!isSmallScreen && (
@@ -252,14 +229,6 @@ class Quran extends React.Component {
           <div className={ClassNames.QuranButtons}>
             <button onClick={nextPage}>Next</button>
             <button onClick={prevPage}>Previous</button>
-            <button
-              className={ClassNames.QuranFontSizeSmall}
-              onClick={decFontSize}
-            />
-            <button
-              className={ClassNames.QuranFontSizeLarge}
-              onClick={incFontSize}
-            />
             <button onClick={toggleShowExplanation}>
               {!showExplanation ? 'Show' : 'Hide'} Explanation
             </button>

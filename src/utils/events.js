@@ -84,7 +84,7 @@ export const onKeyDown = (func, options = false) => {
  * @param {Function} func
  * @return {Function} unsubscribe from event listener
  */
-export const onScroll = (element = window, func) => {
+export const onScroll = (func, element = document.body) => {
   if (typeof element === 'string') {
     element = document.querySelector(element)
   }
@@ -94,4 +94,33 @@ export const onScroll = (element = window, func) => {
   element.addEventListener('scroll', onScrollExec)
 
   return () => element.removeEventListener('scroll', onScrollExec)
+}
+
+/**
+ * @param {Function} func
+ * @return {Function} unsubscribe from event listener
+ */
+export const onResize = (func, element = document.body) => {
+  if (typeof element === 'string') {
+    element = document.querySelector(element)
+  }
+
+  let lastWidth = null
+  let lastHeight = null
+
+  const onResizeExec = (e) => {
+    const { clientWidth: width, clientHeight: height } = element
+
+    if (width !== lastWidth || height !== lastHeight) {
+      lastWidth = width
+      lastHeight = height
+
+      return func({ width, height })
+    }
+  }
+
+  onResizeExec()
+  window.addEventListener('resize', onResizeExec)
+
+  return () => window.removeEventListener('resize', onResizeExec)
 }
