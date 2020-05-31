@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import { toArabicNumber } from 'utils/toArabicNumber'
+import { toSectionName, toArabicNumber } from 'utils/convert'
 import { last } from 'utils/array'
 import QuranVerse from './QuranVerse'
 import ClassNames from './QuranPage.module.scss'
@@ -54,10 +54,10 @@ export default class QuranPage extends React.Component {
                 chapters[last(page.chapters)].arabic_unicode}
             </div>
             <div className={ClassNames.QuranPageSection}>
-              الجزء{' '}
+              الجُزْءُ{' '}
               {sections &&
                 page.sections &&
-                toArabicNumber(sections[last(page.sections)].id)}
+                toSectionName(sections[last(page.sections)].id)}
             </div>
           </div>
           <div className={ClassNames.QuranPageContent}>

@@ -9,6 +9,16 @@
 }
 
 @font-face {
+  font-family: 'Uthmani-Hafs';
+  src: url(~assets/fonts/Uthmani-Hafs.otf);
+}
+
+@font-face {
+  font-family: 'Uthmani-Hafs-Bold';
+  src: url(~assets/fonts/Uthmani-Hafs-Bold.otf);
+}
+
+@font-face {
   font-family: 'quran_page_1';
   src: url(~assets/fonts/quran/quran_page_1.ttf) format('truetype');
 }

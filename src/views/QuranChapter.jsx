@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import { toArabicNumber } from 'utils/toArabicNumber'
+import { toArabicNumber } from 'utils/convert'
 import ClassNames from './QuranChapter.module.scss'
 
 export default class QuranChapter extends React.Component {
