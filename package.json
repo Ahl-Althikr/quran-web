@@ -26,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "firebase use ahlalthikr-quran-web && yarn build && yarn deploy:hosting",
+    "deploy": "firebase use mathani && yarn build && yarn deploy:hosting",
     "deploy:hosting": "firebase deploy --only hosting"
   },
   "eslintConfig": {

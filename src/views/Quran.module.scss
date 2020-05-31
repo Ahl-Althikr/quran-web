@@ -2,48 +2,14 @@
   display: flex;
   flex-direction: row;
   height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 
   @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
-}
-
-.QuranChapters {
-  background: rgba(219, 212, 186, 0.8);
-  width: 325px;
-  height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
-}
-
-.QuranReader {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
-}
-
-.QuranContent {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: row;
-  max-height: calc(100% - 31px);
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-
-  @media only screen and (max-width: 768px) {
-    flex-direction: column-reverse;
     width: 100%;
   }
 }
@@ -52,28 +18,86 @@
   text-align: center;
 }
 
+.QuranReader {
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  max-width: calc(100% - 325px);
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.QuranGrid {
+  outline: none;
+
+  > div {
+    outline: none;
+    display: flex;
+  }
+}
+
+.QuranContent {
+  flex-grow: 1;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  max-height: calc(100% - 31px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+}
+
+.QuranChapters {
+  background: rgba(219, 212, 186, 0.8);
+  width: 325px;
+  max-width: 325px;
+  min-width: 325px;
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
 .QuranButtons {
   margin: 5px;
+  width: calc(100% - 10px);
+  min-width: calc(100% - 10px);
+  max-width: calc(100% - 10px);
+  height: 21px;
+  max-height: 21px;
+  min-height: 21px;
+  display: flex;
+  justify-content: flex-end;
+  white-space: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  display: flex;
+}
+
+.QuranButton {
+  cursor: pointer;
+
+  background-image: linear-gradient(to bottom, #e4e4e4, #f7f7f7);
+  border: 1px solid #afafaf;
+  border-radius: 3px;
   height: 21px;
-  white-space: nowrap;
+  margin: 0;
 
-  > button {
-    cursor: pointer;
-
-    background-image: linear-gradient(to bottom, #e4e4e4, #f7f7f7);
-    border: 1px solid #afafaf;
-    border-radius: 3px;
-    height: 21px;
-    margin: 0;
-
-    &:not(:last-child) {
-      margin-right: 5px;
-    }
-    &:nth-child(3) {
-      margin-left: auto;
-    }
+  &:not(:last-child) {
+    margin-right: 5px;
   }
 }

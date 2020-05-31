@@ -1,0 +1,6 @@
+export { default as chapters } from 'assets/json/quran_chapters.json'
+export { default as explanations } from 'assets/json/quran_explanations.json'
+export { default as languages } from 'assets/json/quran_languages.json'
+export { default as pages } from 'assets/json/quran_pages.json'
+export { default as sections } from 'assets/json/quran_sections.json'
+export { default as verses } from 'assets/json/quran_verses.json'

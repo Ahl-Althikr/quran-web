@@ -1,4 +1,4 @@
-import { JSON_URL } from 'constants/app'
+import * as json from 'assets/json'
 
 export default function createStore(propKey) {
   // State Prop Keys
@@ -15,9 +15,6 @@ export default function createStore(propKey) {
 
   // Api Prop Keys
   const getDataPropKey = 'getData'
-
-  // Data
-  const url = JSON_URL.replace('{}', propKey)
 
   return {
     [propKey]: {
@@ -60,7 +57,7 @@ export default function createStore(propKey) {
       },
       api: {
         [getDataPropKey]: () => {
-          return fetch(url).then((response) => response.json())
+          return json[propKey]
         },
       },
     },

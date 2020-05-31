@@ -1,19 +1,14 @@
+import { Grid, ColumnSizer, AutoSizer } from 'react-virtualized'
 import React from 'react'
 import Provider from '@anew/provider'
 
-import './Quran.css'
-
-import { onKeyDown, onResize } from 'utils/events'
-import { onKey } from 'utils/keys'
-
+import { sizeof } from 'utils/object'
 import QuranPage from './QuranPage'
 import QuranChapter from './QuranChapter'
 import ClassNames from './Quran.module.scss'
 
 class Quran extends React.Component {
   state = {
-    isSmallScreen: false,
-    fontSize: 28,
     blurVerses: false,
     showExplanation: false,
   }
@@ -39,7 +34,7 @@ class Quran extends React.Component {
    * -------------------
    */
 
-  getPage = () => {
+  getActivePageNumber = () => {
     const { pathname, push } = this.props
     let page = +pathname.replace('/', '') || 1
 
@@ -59,34 +54,6 @@ class Quran extends React.Component {
    * Action Methods
    * -------------------
    */
-
-  nextPage = () => {
-    const {
-      getPage,
-      state: { isSmallScreen },
-      props: { push },
-    } = this
-
-    const nextActivePageKey = getPage() + (isSmallScreen ? 1 : 2)
-
-    if (nextActivePageKey > 604) return
-
-    push(() => `/${nextActivePageKey}`)
-  }
-
-  prevPage = () => {
-    const {
-      getPage,
-      state: { isSmallScreen },
-      props: { push },
-    } = this
-
-    const nextActivePageKey = getPage() - (isSmallScreen ? 1 : 2)
-
-    if (nextActivePageKey < 1) return
-
-    push(() => `/${nextActivePageKey}`)
-  }
 
   goToPage = (pageNumber) => {
     const { push } = this.props
@@ -115,58 +82,27 @@ class Quran extends React.Component {
 
   /**
    * -------------------
-   * Hanlder Methods
-   * -------------------
-   */
-
-  handleKeyDown = (event) => {
-    const { prevPage, nextPage } = this
-
-    onKey(event, {
-      right: prevPage,
-      left: nextPage,
-    })
-  }
-
-  handleResize = ({ width, height }) => {
-    const isSmallScreen = width < 1138
-    const fontSize = Math.round(
-      isSmallScreen ? width * 0.0698 : (height - 30) * 0.036117381
-    )
-
-    this.setState({ isSmallScreen, fontSize })
-  }
-
-  /**
-   * -------------------
    * Lifecycle Methods
    * -------------------
    */
 
   componentDidMount() {
     this.props.fetchData()
-    this.removeKeyDownListener = onKeyDown(this.handleKeyDown)
-    this.removeResizeListener = onResize(this.handleResize)
-  }
-
-  componentWillUnmount() {
-    this.removeKeyDownListener()
-    this.removeResizeListener()
   }
 
   render() {
     const {
-      getPage,
-      nextPage,
-      prevPage,
+      getActivePageNumber,
       goToPage,
       toggleBlurVerses,
       toggleShowExplanation,
-      state: { blurVerses, showExplanation, fontSize, isSmallScreen },
+      state: { blurVerses, showExplanation },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
 
-    const page = getPage()
+    const activePageNumber = getActivePageNumber()
+    const activePage = pages[activePageNumber]
+    const pagesCount = sizeof(pages)
 
     return isFetching ? (
       <div className={ClassNames.QuranLoading}>Loading...</div>
@@ -174,65 +110,66 @@ class Quran extends React.Component {
       <div className={ClassNames.Quran}>
         <div className={ClassNames.QuranReader}>
           <div className={ClassNames.QuranContent}>
-            {!((page + 1) % 2) ? (
-              <>
-                {!isSmallScreen && (
-                  <QuranPage
-                    page={pages[page + 1]}
-                    verses={verses}
-                    chapters={chapters}
-                    sections={sections}
-                    explanations={explanations}
-                    fontSize={fontSize}
-                    showExplanation={showExplanation}
-                    blurVerses={blurVerses}
-                  />
-                )}
-                <QuranPage
-                  page={pages[page]}
-                  verses={verses}
-                  chapters={chapters}
-                  sections={sections}
-                  explanations={explanations}
-                  fontSize={fontSize}
-                  showExplanation={showExplanation}
-                  blurVerses={blurVerses}
-                />
-              </>
-            ) : (
-              <>
-                <QuranPage
-                  page={pages[page]}
-                  verses={verses}
-                  chapters={chapters}
-                  sections={sections}
-                  explanations={explanations}
-                  fontSize={fontSize}
-                  showExplanation={showExplanation}
-                  blurVerses={blurVerses}
-                />
-                {!isSmallScreen && (
-                  <QuranPage
-                    page={pages[page - 1]}
-                    verses={verses}
-                    chapters={chapters}
-                    sections={sections}
-                    explanations={explanations}
-                    fontSize={fontSize}
-                    showExplanation={showExplanation}
-                    blurVerses={blurVerses}
-                  />
-                )}
-              </>
-            )}
+            <AutoSizer>
+              {({ width, height }) => {
+                const isSmallScreen = false /*width < 768*/
+                const fontSize = Math.round(
+                  isSmallScreen ? width * 0.0698 : (height - 30) * 0.036117381
+                )
+                const pageWidth = isSmallScreen ? width : fontSize / 0.0698
+
+                return (
+                  <ColumnSizer
+                    key="QuranPageSizer"
+                    columnCount={pagesCount}
+                    width={width}
+                    columnMaxWidth={pageWidth}
+                    columnMinWidth={pageWidth}
+                    scrollAtIndex={activePageNumber}
+                  >
+                    {({ adjustedWidth, getColumnWidth, registerChild }) => (
+                      <Grid
+                        rowCount={1}
+                        ref={registerChild}
+                        columnWidth={getColumnWidth}
+                        columnCount={pagesCount}
+                        height={height}
+                        rowHeight={height}
+                        width={adjustedWidth}
+                        className={ClassNames.QuranGrid}
+                        cellRenderer={({ columnIndex, key }) => (
+                          <QuranPage
+                            key={key}
+                            page={pages[columnIndex + 1]}
+                            verses={verses}
+                            chapters={chapters}
+                            sections={sections}
+                            explanations={explanations}
+                            width={pageWidth}
+                            height={height}
+                            fontSize={fontSize}
+                            showExplanation={showExplanation}
+                            blurVerses={blurVerses}
+                          />
+                        )}
+                      />
+                    )}
+                  </ColumnSizer>
+                )
+              }}
+            </AutoSizer>
           </div>
           <div className={ClassNames.QuranButtons}>
-            <button onClick={nextPage}>Next</button>
-            <button onClick={prevPage}>Previous</button>
-            <button onClick={toggleShowExplanation}>
+            <button
+              className={ClassNames.QuranButton}
+              onClick={toggleShowExplanation}
+            >
               {!showExplanation ? 'Show' : 'Hide'} Explanation
             </button>
-            <button onClick={toggleBlurVerses}>
+            <button
+              className={ClassNames.QuranButton}
+              onClick={toggleBlurVerses}
+            >
               {blurVerses ? 'Show' : 'Hide'} Verses
             </button>
           </div>
@@ -241,7 +178,7 @@ class Quran extends React.Component {
           {Object.values(chapters).map((chapter) => (
             <QuranChapter
               key={chapter.number}
-              page={pages[page]}
+              page={activePage}
               chapter={chapter}
               goToPage={goToPage}
             />
