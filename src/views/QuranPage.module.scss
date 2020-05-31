@@ -46,10 +46,17 @@
   line-height: 16px;
   margin-top: 5px;
   font-family: Uthmani;
-  text-align: center;
   height: 16px;
   min-height: 16px;
   max-height: 16px;
+
+  .QuranPage:nth-child(odd) & {
+    text-align: left;
+  }
+
+  .QuranPage:nth-child(even) & {
+    text-align: right;
+  }
 }
 
 .QuranPageChapterAndSection {
