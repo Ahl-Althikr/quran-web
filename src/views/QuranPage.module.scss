@@ -1,4 +1,9 @@
 .QuranPage {
+  display: flex;
+}
+
+.QuranPageInner {
+  flex-grow: 1;
   line-height: 175%;
   text-align: center;
   word-wrap: break-word;

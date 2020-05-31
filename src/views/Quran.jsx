@@ -3,12 +3,14 @@ import React from 'react'
 import Provider from '@anew/provider'
 
 import { sizeof } from 'utils/object'
+import { onMediaQuery } from 'utils/events'
 import QuranPage from './QuranPage'
 import QuranChapter from './QuranChapter'
 import ClassNames from './Quran.module.scss'
 
 class Quran extends React.Component {
   state = {
+    isSmallScreen: false,
     blurVerses: false,
     showExplanation: false,
   }
@@ -88,6 +90,19 @@ class Quran extends React.Component {
 
   componentDidMount() {
     this.props.fetchData()
+    this.removeOnMediaQuery = onMediaQuery({
+      query: '(max-width: 768px)',
+      onSuccess: () => {
+        this.setState({ isSmallScreen: true })
+      },
+      onFailure: () => {
+        this.setState({ isSmallScreen: false })
+      },
+    })
+  }
+
+  componentWillUnmount() {
+    this.removeOnMediaQuery()
   }
 
   render() {
@@ -96,7 +111,7 @@ class Quran extends React.Component {
       goToPage,
       toggleBlurVerses,
       toggleShowExplanation,
-      state: { blurVerses, showExplanation },
+      state: { blurVerses, showExplanation, isSmallScreen },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
 
@@ -112,20 +127,15 @@ class Quran extends React.Component {
           <div className={ClassNames.QuranContent}>
             <AutoSizer>
               {({ width, height }) => {
-                const isSmallScreen = false /*width < 768*/
-                const fontSize = Math.round(
-                  isSmallScreen ? width * 0.0698 : (height - 30) * 0.036117381
-                )
-                const pageWidth = isSmallScreen ? width : fontSize / 0.0698
+                const pageWidth = isSmallScreen ? width : height * 0.5
+                const fontSize = pageWidth * 0.065
 
                 return (
                   <ColumnSizer
-                    key="QuranPageSizer"
-                    columnCount={pagesCount}
                     width={width}
                     columnMaxWidth={pageWidth}
                     columnMinWidth={pageWidth}
-                    scrollAtIndex={activePageNumber}
+                    columnCount={pagesCount}
                   >
                     {({ adjustedWidth, getColumnWidth, registerChild }) => (
                       <Grid
@@ -137,19 +147,19 @@ class Quran extends React.Component {
                         rowHeight={height}
                         width={adjustedWidth}
                         className={ClassNames.QuranGrid}
-                        cellRenderer={({ columnIndex, key }) => (
+                        scrollToColumn={activePageNumber - 1}
+                        cellRenderer={({ columnIndex, key, style }) => (
                           <QuranPage
                             key={key}
-                            page={pages[columnIndex + 1]}
+                            page={pages[604 - columnIndex]}
                             verses={verses}
                             chapters={chapters}
                             sections={sections}
                             explanations={explanations}
-                            width={pageWidth}
-                            height={height}
                             fontSize={fontSize}
                             showExplanation={showExplanation}
                             blurVerses={blurVerses}
+                            style={style}
                           />
                         )}
                       />

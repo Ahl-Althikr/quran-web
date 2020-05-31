@@ -8,10 +8,6 @@
   min-width: 100%;
   max-width: 100%;
   margin: 0 auto;
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
 }
 
 .QuranLoading {
@@ -30,15 +26,15 @@
 
   @media only screen and (max-width: 768px) {
     width: 100%;
+    min-width: 100%;
+    max-width: 100%;
   }
 }
 
 .QuranGrid {
-  outline: none;
-
+  &,
   > div {
     outline: none;
-    display: flex;
   }
 }
 
@@ -50,15 +46,10 @@
   max-height: calc(100% - 31px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-
-  @media only screen and (max-width: 768px) {
-    flex-direction: column-reverse;
-    width: 100%;
-  }
 }
 
 .QuranChapters {
-  background: rgba(219, 212, 186, 0.8);
+  background: rgba(219, 212, 186, 0.5);
   width: 325px;
   max-width: 325px;
   min-width: 325px;
