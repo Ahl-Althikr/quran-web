@@ -7,7 +7,9 @@ import ClassNames from './QuranChapter.module.scss'
 export default class QuranChapter extends React.Component {
   static defaultProps = {
     chapter: {},
-    page: {},
+    page: {
+      chapters: [],
+    },
   }
 
   render() {
