@@ -157,23 +157,30 @@ class Quran extends React.Component {
                         columnCount={pagesCount}
                         height={pageHeight}
                         rowHeight={pageHeight}
-                        width={adjustedWidth}
                         className={ClassNames.QuranGrid}
-                        scrollToColumn={activePageNumber - 1}
-                        cellRenderer={({ columnIndex, key, style }) => (
-                          <QuranPage
-                            key={key}
-                            page={pages[604 - columnIndex]}
-                            verses={verses}
-                            chapters={chapters}
-                            sections={sections}
-                            explanations={explanations}
-                            fontSize={fontSize}
-                            showExplanation={showExplanation}
-                            blurVerses={blurVerses}
-                            style={style}
-                          />
-                        )}
+                        scrollToColumn={604 - activePageNumber}
+                        width={isSmallScreen ? adjustedWidth : pageWidth * 2}
+                        cellRenderer={({
+                          columnIndex,
+                          isVisible,
+                          key,
+                          style,
+                        }) => {
+                          return (
+                            <QuranPage
+                              key={key}
+                              page={pages[604 - columnIndex]}
+                              verses={verses}
+                              chapters={chapters}
+                              sections={sections}
+                              explanations={explanations}
+                              fontSize={fontSize}
+                              showExplanation={showExplanation}
+                              blurVerses={blurVerses}
+                              style={style}
+                            />
+                          )
+                        }}
                       />
                     )}
                   </ColumnSizer>
