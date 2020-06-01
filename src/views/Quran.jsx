@@ -152,6 +152,7 @@ class Quran extends React.Component {
                     {({ adjustedWidth, getColumnWidth, registerChild }) => (
                       <Grid
                         rowCount={1}
+                        overscanColumnCount={7}
                         ref={registerChild}
                         columnWidth={getColumnWidth}
                         columnCount={pagesCount}
