@@ -10,7 +10,8 @@ import {
   HEIGHT_NOFFSET,
 } from 'constants/quran'
 import { sizeof } from 'utils/object'
-import { onMediaQuery } from 'utils/events'
+import { onMediaQuery, onKeyDown } from 'utils/events'
+import { onKey } from 'utils/keys'
 import QuranPage from './QuranPage'
 import QuranChapter from './QuranChapter'
 import ClassNames from './Quran.module.scss'
@@ -72,6 +73,32 @@ class Quran extends React.Component {
     push(() => `/${pageNumber}`)
   }
 
+  nextPage = () => {
+    const {
+      state: { isSmallScreen, scrollPageNumber },
+      props: { push },
+    } = this
+
+    const nextActivePageKey = scrollPageNumber + (isSmallScreen ? 1 : 2)
+
+    if (nextActivePageKey > 604) return
+
+    push(() => `/${nextActivePageKey}`)
+  }
+
+  prevPage = () => {
+    const {
+      state: { isSmallScreen, scrollPageNumber },
+      props: { push },
+    } = this
+
+    const nextActivePageKey = scrollPageNumber - (isSmallScreen ? 1 : 2)
+
+    if (nextActivePageKey < 1) return
+
+    push(() => `/${nextActivePageKey}`)
+  }
+
   /**
    * -------------------
    * State Methods
@@ -92,12 +119,31 @@ class Quran extends React.Component {
 
   /**
    * -------------------
+   * Handle Methods
+   * -------------------
+   */
+
+  handleKeyDown = (event) => {
+    const { prevPage, nextPage } = this
+
+    event.preventDefault()
+    event.stopPropagation()
+
+    onKey(event, {
+      right: prevPage,
+      left: nextPage,
+    })
+  }
+
+  /**
+   * -------------------
    * Lifecycle Methods
    * -------------------
    */
 
   componentDidMount() {
     this.props.fetchData()
+    this.removeKeyDownListener = onKeyDown(this.handleKeyDown)
     this.removeOnMediaQuery = onMediaQuery({
       query: '(max-width: 768px)',
       onSuccess: () => {
@@ -110,6 +156,7 @@ class Quran extends React.Component {
   }
 
   componentWillUnmount() {
+    this.removeKeyDownListener()
     this.removeOnMediaQuery()
   }
 
@@ -119,6 +166,8 @@ class Quran extends React.Component {
       goToPage,
       toggleBlurVerses,
       toggleShowExplanation,
+      nextPage,
+      prevPage,
       state: { blurVerses, showExplanation, isSmallScreen, scrollPageNumber },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
@@ -195,6 +244,12 @@ class Quran extends React.Component {
             </AutoSizer>
           </div>
           <div className={ClassNames.QuranButtons}>
+            <button className={ClassNames.QuranButton} onClick={nextPage}>
+              Next
+            </button>
+            <button className={ClassNames.QuranButton} onClick={prevPage}>
+              Previous
+            </button>
             <button
               className={ClassNames.QuranButton}
               onClick={toggleShowExplanation}
