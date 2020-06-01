@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
+import { MIDDLE_DOT } from 'constants/characters'
 import { toSectionName, toArabicNumber } from 'utils/convert'
 import { last } from 'utils/array'
 import QuranVerse from './QuranVerse'
@@ -10,6 +11,7 @@ export default class QuranPage extends React.Component {
   static defaultProps = {
     page: {
       verses: [],
+      chapters: [],
     },
   }
 
@@ -49,9 +51,9 @@ export default class QuranPage extends React.Component {
         <div className={ClassNames.QuranPageInner}>
           <div className={ClassNames.QuranPageChapterAndSection}>
             <div className={ClassNames.QuranPageChapter}>
-              {chapters &&
-                page.chapters &&
-                chapters[last(page.chapters)].arabic_unicode}
+              {page.chapters
+                .map((chapter) => chapters[chapter].arabic_unicode)
+                .join(` ${MIDDLE_DOT} `)}
             </div>
             <div className={ClassNames.QuranPageSection}>
               الجُزْءُ{' '}
