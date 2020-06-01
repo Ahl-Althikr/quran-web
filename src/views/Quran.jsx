@@ -2,6 +2,13 @@ import { Grid, ColumnSizer, AutoSizer } from 'react-virtualized'
 import React from 'react'
 import Provider from '@anew/provider'
 
+import {
+  WIDTH_FROM_HEIGHT,
+  FONT_FROM_HEIGHT,
+  FONT_FROM_WIDTH,
+  WIDTH_POFFSET,
+  HEIGHT_NOFFSET,
+} from 'constants/quran'
 import { sizeof } from 'utils/object'
 import { onMediaQuery } from 'utils/events'
 import QuranPage from './QuranPage'
@@ -126,9 +133,14 @@ class Quran extends React.Component {
         <div className={ClassNames.QuranReader}>
           <div className={ClassNames.QuranContent}>
             <AutoSizer>
-              {({ width, height }) => {
-                const pageWidth = isSmallScreen ? width : height * 0.5
-                const fontSize = pageWidth * 0.065
+              {({ width, height: pageHeight }) => {
+                const actualHeight = pageHeight - HEIGHT_NOFFSET
+                const pageWidth = isSmallScreen
+                  ? width
+                  : actualHeight * WIDTH_FROM_HEIGHT + WIDTH_POFFSET
+                const fontSize = isSmallScreen
+                  ? pageWidth * FONT_FROM_WIDTH
+                  : actualHeight * FONT_FROM_HEIGHT
 
                 return (
                   <ColumnSizer
@@ -143,8 +155,8 @@ class Quran extends React.Component {
                         ref={registerChild}
                         columnWidth={getColumnWidth}
                         columnCount={pagesCount}
-                        height={height}
-                        rowHeight={height}
+                        height={pageHeight}
+                        rowHeight={pageHeight}
                         width={adjustedWidth}
                         className={ClassNames.QuranGrid}
                         scrollToColumn={activePageNumber - 1}

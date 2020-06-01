@@ -1,11 +1,15 @@
 .QuranPage {
   display: flex;
+  text-align: center;
+
+  &.isExplanation {
+    text-align: right;
+  }
 }
 
 .QuranPageInner {
   flex-grow: 1;
   line-height: 175%;
-  text-align: center;
   word-wrap: break-word;
   padding: 5px;
   border: 1px solid rgba($color: #000000, $alpha: 0.2);
@@ -26,15 +30,10 @@
     padding-left: 0;
     padding-right: 0;
   }
-
-  &.isExplanation {
-    text-align: right;
-  }
 }
 
 .QuranPageContent {
   margin: auto 0;
-  max-height: calc(100% - 42px);
 
   .isExplanation & {
     margin: 0;
@@ -42,27 +41,20 @@
 }
 
 .QuranPageNumber {
-  font-size: 16px;
+  font-size: 0.6em;
   line-height: 16px;
   margin-top: 5px;
   font-family: Uthmani;
   height: 16px;
   min-height: 16px;
   max-height: 16px;
-
-  .QuranPage:nth-child(odd) & {
-    text-align: left;
-  }
-
-  .QuranPage:nth-child(even) & {
-    text-align: right;
-  }
+  text-align: center;
 }
 
 .QuranPageChapterAndSection {
   display: flex;
   flex-direction: row;
-  font-size: 16px;
+  font-size: 0.6em;
   line-height: 16px;
   padding: 0px 7px;
   margin-bottom: 5px;
