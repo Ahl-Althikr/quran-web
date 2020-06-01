@@ -17,6 +17,7 @@ import ClassNames from './Quran.module.scss'
 
 class Quran extends React.Component {
   state = {
+    scrollPageNumber: 1,
     isSmallScreen: false,
     blurVerses: false,
     showExplanation: false,
@@ -118,12 +119,12 @@ class Quran extends React.Component {
       goToPage,
       toggleBlurVerses,
       toggleShowExplanation,
-      state: { blurVerses, showExplanation, isSmallScreen },
+      state: { blurVerses, showExplanation, isSmallScreen, scrollPageNumber },
       props: { isFetching, verses, pages, chapters, sections, explanations },
     } = this
 
     const activePageNumber = getActivePageNumber()
-    const activePage = pages[activePageNumber]
+    const scrollPage = pages[scrollPageNumber]
     const pagesCount = sizeof(pages)
 
     return isFetching ? (
@@ -159,29 +160,33 @@ class Quran extends React.Component {
                         height={pageHeight}
                         rowHeight={pageHeight}
                         className={ClassNames.QuranGrid}
-                        scrollToColumn={604 - activePageNumber}
                         width={isSmallScreen ? adjustedWidth : pageWidth * 2}
-                        cellRenderer={({
-                          columnIndex,
-                          isVisible,
-                          key,
-                          style,
-                        }) => {
-                          return (
-                            <QuranPage
-                              key={key}
-                              page={pages[604 - columnIndex]}
-                              verses={verses}
-                              chapters={chapters}
-                              sections={sections}
-                              explanations={explanations}
-                              fontSize={fontSize}
-                              showExplanation={showExplanation}
-                              blurVerses={blurVerses}
-                              style={style}
-                            />
-                          )
+                        scrollToColumn={
+                          604 -
+                          activePageNumber -
+                          ([1, 604].includes(activePageNumber) ? 0 : 1)
+                        }
+                        onScroll={(e) => {
+                          this.setState({
+                            scrollPageNumber:
+                              603 -
+                              Math.ceil(e.scrollLeft / Math.floor(pageWidth)),
+                          })
                         }}
+                        cellRenderer={({ columnIndex, key, style }) => (
+                          <QuranPage
+                            key={key}
+                            page={pages[604 - columnIndex]}
+                            verses={verses}
+                            chapters={chapters}
+                            sections={sections}
+                            explanations={explanations}
+                            fontSize={fontSize}
+                            showExplanation={showExplanation}
+                            blurVerses={blurVerses}
+                            style={style}
+                          />
+                        )}
                       />
                     )}
                   </ColumnSizer>
@@ -208,7 +213,7 @@ class Quran extends React.Component {
           {Object.values(chapters).map((chapter) => (
             <QuranChapter
               key={chapter.number}
-              page={activePage}
+              page={scrollPage}
               chapter={chapter}
               goToPage={goToPage}
             />
